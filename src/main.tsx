@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+
+import { AuthProvider } from './contexts/auth';
+import { SignInScreen } from './screens/auth/SingIn';
 
 const Main = () => {
     return (
-        <View>
-            <Text>Hi Devs 📚</Text>
-        </View>
+        <AuthProvider>
+            <SignInScreen/>
+        </AuthProvider>
     )
 }
 
