@@ -16,13 +16,7 @@ interface ISignInPros {
 }
 
 
-interface ISignInResponse {
-    token:string;
-    user:IUserProps;
-}
-
 export { 
     IAuthProps, 
     ISignInPros,  
-    ISignInResponse,
 };

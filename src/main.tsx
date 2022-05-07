@@ -1,13 +1,17 @@
 import React from 'react';
 
+import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './contexts/auth';
-import { SignInScreen } from './screens/auth/SingIn';
 
-const Main = () => {
+import Routes from './routes';
+
+const Main:React.FC = () => {
     return (
-        <AuthProvider>
-            <SignInScreen/>
-        </AuthProvider>
+        <NavigationContainer>
+            <AuthProvider>
+                <Routes/>
+            </AuthProvider>
+        </NavigationContainer>
     )
 }
 

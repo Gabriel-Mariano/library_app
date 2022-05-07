@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api.default';
 
 import { IUserProps } from '../@types/user';
-import { IAuthProps, ISignInPros, ISignInResponse } from './auth.d';
+import { IAuthProps, ISignInPros } from './auth.d';
 
 const AuthContext = createContext<IAuthProps>({} as IAuthProps);
 
@@ -35,17 +35,15 @@ const AuthProvider = ({ children }) => {
 
     const signIn = useCallback(async({ email, password}:ISignInPros) => {
         try{
-            const { data } = await api.post<ISignInResponse>('/auth/sign-in', { email, password });
-            console.log('aqui', data)
-            const { token, user } = data;
+            const  { data, headers }  = await api.post('/auth/sign-in', { email, password });
             
-            await AsyncStorage.setItem('@rentAuto:user',JSON.stringify(user));
-            await AsyncStorage.setItem('@rentAuto:token',token);
-            setUser(user);
+            const { authorization } = headers;
             
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-            return;
+            await AsyncStorage.setItem('@rentAuto:user',JSON.stringify(data));
+            await AsyncStorage.setItem('@rentAuto:token',authorization);
+            setUser(data);
+        
+            api.defaults.headers.common['Authorization'] = `Bearer ${authorization}`;
         
         }catch(err:any){
             

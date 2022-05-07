@@ -13,7 +13,6 @@ import { styles } from './styles';
 import Logo from '../../../assets/Logo.png';
 import Books from '../../../assets/Title.png'
 
-
 export const SignInScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
