@@ -1,14 +1,20 @@
 import { StyleSheet } from 'react-native';
+import { COLORS } from '../../themes/colors';
 
 export const styles = StyleSheet.create({
     container:{
         width:'100%',
-        height:104,
+        height:433,
 
+        paddingVertical:16,
+        paddingHorizontal:16,
+
+        backgroundColor:"#FFF"
+    },
+    header:{
         flexDirection:'row',
         justifyContent:'space-between',
-        alignItems:'center',
-        paddingHorizontal:16
+        alignContent:'flex-end'
     },
     buttonSignOut:{
         width:32,
@@ -21,5 +27,23 @@ export const styles = StyleSheet.create({
         opacity:20,
         borderWidth:1,
         borderColor: 'rgba(51, 51, 51, 0.2)'
+    },
+    body:{
+        marginTop:20
+    },
+    title:{
+        fontFamily:'Heebo_600SemiBold',
+        marginBottom:10
+    },
+    button:{
+        alignSelf:'center',
+        width:90,
+        height:32,
+
+        borderWidth:1,
+        borderColor:COLORS.primary,
+        borderRadius:44,
+        justifyContent:'center',
+        alignItems:'center'
     }
 });

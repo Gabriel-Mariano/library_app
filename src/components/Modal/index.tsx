@@ -1,27 +1,35 @@
 import React from 'react';
-import { Modal, View, Pressable } from 'react-native';
+import { View, Pressable, Text, FlatList } from 'react-native';
+import Modal from 'react-native-modal';
 
-import Octicons from '@expo/vector-icons/FontAwesome5';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { styles } from './styles';
+import { Badge } from '../Badge';
+import { ButtonComponent } from '../Button';
+import { ModalProps } from './index.d';
 
-const ModalComponent = props => {
+const ModalComponent:React.FC<ModalProps> = props => {
+    const { isVisible, setModalIsVisible } = props;
     return (
         <Modal
-            visible={true}
+            isVisible={isVisible}
         >
             <View style={styles.container}>
-                <View/>
-                <View>
-                <Pressable style={styles.buttonSignOut}>
-                    <Octicons name='sign-out-alt' size={16}/> 
-                </Pressable>
+                <View style={styles.header}>
+                    <View/>
+                    <View>
+                        <Pressable style={styles.buttonSignOut} onPress={()=> setModalIsVisible(!isVisible) }>
+                            <Ionicons name='close-outline' size={16}/> 
+                        </Pressable>
+                    </View>
                 </View>
+                <View style={styles.body}>
+                    <Text style={styles.title}>Selecione a categoria</Text>
+                    <Badge title='teste'/>
+                </View>
+                <ButtonComponent title='Filtrar' style={styles.button}/>
             </View>
-            <View>
-
-            </View>
-            <View>
-            </View>
+            
         </Modal>
     )
 }

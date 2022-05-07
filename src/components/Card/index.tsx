@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import { styles } from './styles';
 import { ICardProps } from './index.d';
 
@@ -13,12 +13,13 @@ const CardComponent:React.FC<ICardProps> = props => {
         pages,
         published,
         publisher,
-        imageUrl 
+        imageUrl,
+        ...rest 
     } = props;
 
     console.log(imageUrl)
     return ( 
-        <View style={styles.container}>
+        <Pressable style={styles.container} {...rest}>
             <View>
                 <Image 
                     source={{ uri:imageUrl }}  
@@ -37,7 +38,7 @@ const CardComponent:React.FC<ICardProps> = props => {
                     <Text style={styles.text}>Publicado em {published}</Text>
                 </View>
             </View>
-        </View>
+        </Pressable>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Alert, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, Alert, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeaderComponent } from '../../../components/Header';
 import { InputSearch } from '../../../components/InputSearch';
@@ -10,11 +10,14 @@ import { styles } from './styles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import iconFilter from '../../../assets/iconFilter.png';
 import listBooks from '../../../services/books';
+import { ModalComponent } from '../../../components/Modal';
+import Modal from 'react-native-modal';
 
 export const HomeScreen = () => {
     const [search, setSearch] = useState('');
     const [books, setBooks] = useState<IBooksProps[]>([]);
     const [filteredData, setFilteredData] = useState<IBooksProps[]>([]);
+    const [modalIsVisible, setModalIsVisible] = useState(false);
 
     useEffect(()=> {
         handleListBooks();
@@ -33,7 +36,8 @@ export const HomeScreen = () => {
     },[])
 
     const successResponse = (data:any) => {
-        setBooks(data.data)
+        setBooks(data.data);
+        setFilteredData(data.data)
     }
 
     const failedResponse = (res:string) => {
@@ -56,8 +60,19 @@ export const HomeScreen = () => {
         }
     },[search]);
 
+    const handleCard = () => {
+       
+    }
+
+    const renderModal = () => {
+        return modalIsVisible
+            ? <ModalComponent isVisible={modalIsVisible} setModalIsVisible={setModalIsVisible} />
+            : null
+    }
+
     return (
         <SafeAreaView style={styles.container}>
+            {renderModal()}
             <HeaderComponent />
             <View style={styles.searchWrapper}>
                 <InputSearch 
@@ -69,6 +84,7 @@ export const HomeScreen = () => {
                 />
                 <TouchableOpacity 
                         style={styles.buttonFilter}
+                        onPress={()=> setModalIsVisible(true)}
                     >
                         <Image source={iconFilter}  />
                 </TouchableOpacity>
@@ -86,10 +102,12 @@ export const HomeScreen = () => {
                             pages={item.pageCount}
                             published={item.published}
                             publisher={item.publisher}
+                            onPress={handleCard}
                         /> 
                     )
                 }}
             />
+            
         </SafeAreaView>
     )
 }
