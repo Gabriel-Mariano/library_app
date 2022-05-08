@@ -5,13 +5,13 @@ import { HeaderComponent } from '../../../components/Header';
 import { InputSearch } from '../../../components/InputSearch';
 import { IBooksProps } from '../../../@types/books';
 import { CardComponent } from '../../../components/Card';
+import { ModalComponent } from '../../../components/Modal';
 import { styles } from './styles';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import iconFilter from '../../../assets/iconFilter.png';
 import listBooks from '../../../services/books';
-import { ModalComponent } from '../../../components/Modal';
-import Modal from 'react-native-modal';
+
 
 export const HomeScreen = () => {
     const [search, setSearch] = useState('');
@@ -60,13 +60,18 @@ export const HomeScreen = () => {
         }
     },[search]);
 
-    const handleCard = () => {
+    const handleFilter = () => {
        
     }
 
     const renderModal = () => {
         return modalIsVisible
-            ? <ModalComponent isVisible={modalIsVisible} setModalIsVisible={setModalIsVisible} />
+            ? <ModalComponent 
+                isVisible={modalIsVisible} 
+                setModalIsVisible={setModalIsVisible} 
+                filteredData={filteredData}
+                setFilteredData={setFilteredData}
+               />
             : null
     }
 
@@ -102,7 +107,7 @@ export const HomeScreen = () => {
                             pages={item.pageCount}
                             published={item.published}
                             publisher={item.publisher}
-                            onPress={handleCard}
+                            
                         /> 
                     )
                 }}

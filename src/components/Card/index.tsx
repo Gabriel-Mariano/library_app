@@ -17,7 +17,6 @@ const CardComponent:React.FC<ICardProps> = props => {
         ...rest 
     } = props;
 
-    console.log(imageUrl)
     return ( 
         <Pressable style={styles.container} {...rest}>
             <View>
